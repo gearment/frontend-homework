@@ -1,0 +1,63 @@
+.ant-dropdown-menu-item-group-title {
+  color: #00127f !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+}
+li.ant-dropdown-menu-item {
+  padding: 0;
+  gap: 4px;
+}
+
+span.MuiButtonBase-root.MuiCheckbox-root.MuiCheckbox-colorPrimary.MuiCheckbox-sizeMedium.PrivateSwitchBase-root.MuiCheckbox-root.MuiCheckbox-colorPrimary.MuiCheckbox-sizeMedium.MuiCheckbox-root.MuiCheckbox-colorPrimary.MuiCheckbox-sizeMedium.ant-dropdown-menu-item-icon.css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root {
+  padding: 4px;
+  margin: 0;
+}
+
+.filter-btn-ants {
+  &:hover {
+    background-color: #fff !important;
+  }
+}
+
+.placeholder-custom-class::placeholder,
+input::placeholder {
+  color: #00127f;
+  opacity: 0.5;
+}
+
+.group-custom-class {
+  width: 220px;
+}
+
+.input-custom {
+  border: none !important;
+  background-color: #f2f3fc !important;
+  color: #00127f !important;
+}
+
+.ant-select-selector,
+.ant-picker.ant-picker-outlined.css-dev-only-do-not-override-3rel02 {
+  border: none !important;
+  background-color: #f2f3fc !important;
+}
+
+span.ant-select-selection-placeholder {
+  color: #00127f !important;
+  opacity: 0.5;
+}
+
+.ant-select-item-option-content,
+.ant-select-selection-item,
+.ant-dropdown-menu-title-content {
+  color: #00127f !important;
+}
+
+.pointer-cursor {
+  cursor: pointer;
+}
+
+.fill-icon-style {
+  svg {
+    fill: #5f68ae !important;
+  }
+}
