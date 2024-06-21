@@ -45,6 +45,15 @@
   outline: none;
   justify-content: center;
   align-items: center;
+  transition: 0.5s ease-in-out all;
+}
+
+.primary-button:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 18, 127, 1) 0%,
+    rgba(44, 79, 209, 1) 100%
+  );
 }
 
 .secondary-button {
@@ -61,6 +70,10 @@
   align-items: center;
   border: 2px solid #00127f;
   font-weight: 600;
+}
+
+.secondary-button:hover {
+  background-color: #f2f3fb;
 }
 
 .select-style .css-b62m3t-container {

@@ -16,12 +16,17 @@ import { TbMailFilled } from 'react-icons/tb';
 import InvoiceStatusItem from 'components/InvoiceStatusItem';
 import { IoCloseOutline } from 'react-icons/io5';
 import Pagination from 'components/Pagination';
+import { FaArrowDown, FaArrowUp } from 'react-icons/fa6';
+import {
+  INVOICES_FILLTER_STATUS,
+  INVOICES_SORT_STATUS
+} from 'constant/common.constant';
 
 const fillterData = [
-  { id: 1, name: 'All' },
-  { id: 2, name: 'Edit' },
-  { id: 3, name: 'Inprogress' },
-  { id: 4, name: 'Draft' }
+  { id: 1, name: INVOICES_FILLTER_STATUS.ALL },
+  { id: 2, name: INVOICES_FILLTER_STATUS.EDIT },
+  { id: 3, name: INVOICES_FILLTER_STATUS.INPROGRESS },
+  { id: 4, name: INVOICES_FILLTER_STATUS.DRAFT }
 ];
 
 const invoicesData = [
@@ -119,15 +124,24 @@ const invoicesData = [
 ];
 
 const Invoices = () => {
-  const [filter, setFilter] = useState<string>('All');
+  const [invoices, setInvoices] = useState(invoicesData);
+  const [filter, setFilter] = useState<string>(INVOICES_FILLTER_STATUS.ALL);
   const [fromDate, setFromDate] = useState<Date>();
   const [toDate, setToDate] = useState<Date>();
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(
-    Math.ceil(invoicesData.length / 10)
-  );
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const [invoiceIDSort, setInvoiceIDSort] = useState<string>(
+    INVOICES_SORT_STATUS.ASC
+  );
+  const [billedToSort, setBilledToSort] = useState<string>(
+    INVOICES_SORT_STATUS.ASC
+  );
+  const [invoiceDateSort, setInvoiceDateSort] = useState<string>(
+    INVOICES_SORT_STATUS.ASC
+  );
 
   const page = searchParams.get('page') || 1;
 
@@ -135,11 +149,63 @@ const Invoices = () => {
     navigate(`/invoices?page=${page}`);
   };
 
+  const handleSortId = () => {
+    if (invoiceIDSort === INVOICES_SORT_STATUS.ASC) {
+      setInvoiceIDSort(INVOICES_SORT_STATUS.DESC);
+      invoices.sort((a, b) => (a.invoiceId < b.invoiceId ? 1 : -1));
+      setInvoices(invoices);
+    } else {
+      setInvoiceIDSort(INVOICES_SORT_STATUS.ASC);
+      invoices.sort((a, b) => (a.invoiceId > b.invoiceId ? 1 : -1));
+      setInvoices(invoices);
+    }
+  };
+
+  const handleSortBilledTo = () => {
+    if (billedToSort === INVOICES_SORT_STATUS.ASC) {
+      setBilledToSort(INVOICES_SORT_STATUS.DESC);
+      invoices.sort((a, b) => (a.billedTo < b.billedTo ? 1 : -1));
+      setInvoices(invoices);
+    } else {
+      setBilledToSort(INVOICES_SORT_STATUS.ASC);
+      invoices.sort((a, b) => (a.billedTo > b.billedTo ? 1 : -1));
+      setInvoices(invoices);
+    }
+  };
+
+  const handleSortInvoiceDate = () => {
+    if (invoiceDateSort === INVOICES_SORT_STATUS.ASC) {
+      setInvoiceDateSort(INVOICES_SORT_STATUS.DESC);
+      invoices.sort((a, b) => (a.invoiceDate < b.invoiceDate ? 1 : -1));
+      setInvoices(invoices);
+    } else {
+      setInvoiceDateSort(INVOICES_SORT_STATUS.ASC);
+      invoices.sort((a, b) => (a.invoiceDate > b.invoiceDate ? 1 : -1));
+      setInvoices(invoices);
+    }
+  };
+
+  const handleCheckAll = (checked: boolean) => {
+    const checkboxes = document.querySelectorAll('.invoiceCheckbox');
+    checkboxes.forEach((checkbox: any) => {
+      checkbox.checked = checked;
+    });
+  };
+
   useEffect(() => {
     if (page) {
       setCurrentPage(Number(page));
     }
   }, [page, totalPages]);
+
+  useEffect(() => {
+    setTotalPages(Math.ceil(invoicesData.length / itemsPerPage));
+    const _invoices = invoicesData.slice(
+      (currentPage - 1) * itemsPerPage,
+      currentPage * itemsPerPage
+    );
+    setInvoices(_invoices);
+  }, [currentPage, invoices, itemsPerPage]);
 
   return (
     <div className="container text-primary flex flex-col gap-3">
@@ -150,7 +216,7 @@ const Invoices = () => {
               return (
                 <div
                   key={data.id}
-                  className={`p-2 rounded-md cursor-pointer ${
+                  className={`p-2 rounded-md cursor-pointer hover:bg-alice_blue ${
                     filter === data.name ? 'bg-alice_blue' : ''
                   }`}
                   onClick={() => {
@@ -232,18 +298,97 @@ const Invoices = () => {
             <thead>
               <tr>
                 <th className="w-[50px]">
-                  <input type="checkbox" className="invoiceCheckbox" />
+                  <input
+                    type="checkbox"
+                    className="invoiceCheckbox"
+                    onChange={e => {
+                      handleCheckAll(e.target.checked);
+                    }}
+                  />
                 </th>
-                <th>Invoice ID</th>
-                <th>Billed to</th>
-                <th>Invoice Date</th>
+                <th>
+                  <div
+                    className="flex items-center gap-2 cursor-pointer"
+                    onClick={handleSortId}
+                  >
+                    <p>Invoice ID</p>
+                    <div className="flex">
+                      <FaArrowUp
+                        className={`text-xs ${
+                          invoiceIDSort === INVOICES_SORT_STATUS.DESC
+                            ? 'opacity-50'
+                            : ''
+                        }`}
+                      />
+                      <FaArrowDown
+                        className={`text-xs ${
+                          invoiceIDSort === INVOICES_SORT_STATUS.ASC
+                            ? 'opacity-50'
+                            : ''
+                        }`}
+                      />
+                    </div>
+                  </div>
+                </th>
+                <th>
+                  <div
+                    className="flex items-center gap-2 cursor-pointer"
+                    onClick={handleSortBilledTo}
+                  >
+                    <p>Billed to</p>
+                    <div className="flex">
+                      <div className="flex">
+                        <FaArrowUp
+                          className={`text-xs ${
+                            billedToSort === INVOICES_SORT_STATUS.DESC
+                              ? 'opacity-50'
+                              : ''
+                          }`}
+                        />
+                        <FaArrowDown
+                          className={`text-xs ${
+                            billedToSort === INVOICES_SORT_STATUS.ASC
+                              ? 'opacity-50'
+                              : ''
+                          }`}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </th>
+                <th>
+                  <div
+                    className="flex items-center gap-2 cursor-pointer"
+                    onClick={handleSortInvoiceDate}
+                  >
+                    <p>Invoice Date</p>
+                    <div className="flex">
+                      <div className="flex">
+                        <FaArrowUp
+                          className={`text-xs ${
+                            invoiceDateSort === INVOICES_SORT_STATUS.DESC
+                              ? 'opacity-50'
+                              : ''
+                          }`}
+                        />
+                        <FaArrowDown
+                          className={`text-xs ${
+                            invoiceDateSort === INVOICES_SORT_STATUS.ASC
+                              ? 'opacity-50'
+                              : ''
+                          }`}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </th>
                 <th>Status</th>
                 <th className="w-[80px]">VAT</th>
                 <th className="w-[180px]">Export</th>
               </tr>
             </thead>
             <tbody className="hidden-scrollbar">
-              {invoicesData.map(data => {
+              {invoices.map(data => {
                 return (
                   <tr key={data.invoiceId}>
                     <td className="w-[50px]">
@@ -290,9 +435,7 @@ const Invoices = () => {
               { value: 30, label: 30 },
               { value: 40, label: 40 }
             ]}
-            onChange={(e: any) =>
-              setTotalPages(Math.ceil(invoicesData.length / e.value))
-            }
+            onChange={(e: any) => setItemsPerPage(e.value)}
           />
           <p>per page</p>
         </div>

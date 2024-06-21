@@ -30,7 +30,7 @@ const SideBarItem = ({
       {!url ? (
         <div
           className={`flex justify-between items-center py-2 px-4 cursor-pointer rounded-lg ${className} ${
-            isActive ? 'bg-primary' : ''
+            isActive ? 'bg-primary' : 'hover:bg-alice_blue'
           }`}
         >
           <div
@@ -60,7 +60,7 @@ const SideBarItem = ({
       ) : (
         <div
           className={`flex justify-between items-center py-2 px-4 rounded-lg ${
-            isActive ? 'bg-primary' : ''
+            isActive ? 'bg-primary' : 'hover:bg-alice_blue'
           }`}
         >
           <Link

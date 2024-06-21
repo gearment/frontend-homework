@@ -10,6 +10,13 @@ const InvoicesAdd = () => {
   const [invoiceDate, setInvoiceDate] = useState<Date>();
   const [dueDate, setDueDate] = useState<Date>();
 
+  const handleCheckAll = (checked: boolean) => {
+    const checkboxes = document.querySelectorAll('.invoiceCheckbox');
+    checkboxes.forEach((checkbox: any) => {
+      checkbox.checked = checked;
+    });
+  };
+
   return (
     <div className="container text-primary flex flex-col gap-3 relative">
       <div className="p-5 bg-white rounded-xl flex gap-5 flex-wrap select-style">
@@ -107,7 +114,11 @@ const InvoicesAdd = () => {
             <thead>
               <tr>
                 <th className="w-[50px]">
-                  <input type="checkbox" className="invoiceCheckbox" />
+                  <input
+                    type="checkbox"
+                    className="invoiceCheckbox"
+                    onChange={e => handleCheckAll(e.target.checked)}
+                  />
                 </th>
                 <th className="w-[34vw]">Detail</th>
                 <th>Quantity</th>
@@ -162,7 +173,7 @@ const InvoicesAdd = () => {
           <button className="secondary-button min-w-[130px]">
             <p>Save as a draft</p>
           </button>
-          <button className="min-w-[100px] bg-white text-primary text-sm font-semibold">
+          <button className="min-w-[100px] bg-white text-primary text-sm font-semibold hover:bg-alice_blue p-2 rounded-lg">
             <p>Cancel</p>
           </button>
         </div>

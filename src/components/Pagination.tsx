@@ -36,7 +36,7 @@ const Pagination = ({
           key={i}
           onClick={() => handlePageClick(i)}
           disabled={i === currentPage}
-          className={`text-sm rounded-md w-[30px] h-[32px] ${
+          className={`text-sm rounded-md w-[30px] h-[32px] hover:bg-alice_blue ${
             i === currentPage
               ? 'bg-alice_blue'
               : 'border border-solid border-primary'
