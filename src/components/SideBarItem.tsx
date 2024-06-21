@@ -48,7 +48,10 @@ const SideBarItem = ({
             </p>
           </div>
           {isMultiple && (
-            <div onClick={handleShowSubmenu}>
+            <div
+              onClick={handleShowSubmenu}
+              className="w-full flex justify-end"
+            >
               <IoIosArrowUp
                 className={`text-primary text-lg font-semibold ${
                   isOpen ? '' : 'rotate-180'
@@ -79,7 +82,10 @@ const SideBarItem = ({
             </p>
           </Link>
           {isMultiple && (
-            <div onClick={handleShowSubmenu}>
+            <div
+              onClick={handleShowSubmenu}
+              className="w-full flex justify-end"
+            >
               <IoIosArrowUp
                 className={`text-primary text-lg font-semibold ${
                   isOpen ? '' : 'rotate-180'
