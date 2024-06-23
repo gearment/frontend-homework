@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IoIosAddCircle, IoIosArrowDown } from 'react-icons/io';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import Select from 'react-select';
+import Select, { OnChangeValue } from 'react-select';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {
@@ -21,6 +21,8 @@ import {
   INVOICES_FILLTER_STATUS,
   INVOICES_SORT_STATUS
 } from 'constant/common.constant';
+import { useInvoices } from 'contexts/InvoicesContext';
+import { Invoice } from 'types/Invoices.type';
 
 const fillterData = [
   { id: 1, name: INVOICES_FILLTER_STATUS.ALL },
@@ -29,102 +31,9 @@ const fillterData = [
   { id: 4, name: INVOICES_FILLTER_STATUS.DRAFT }
 ];
 
-const invoicesData = [
-  {
-    invoiceId: '000115',
-    billedTo: 'Happy Pets LTD',
-    invoiceDate: '12/01/2023',
-    status: 'Drafts',
-    vat: true
-  },
-  {
-    invoiceId: '000116',
-    billedTo: 'ItSolutions LTD',
-    invoiceDate: '12/02/2023',
-    status: 'Paid',
-    vat: true
-  },
-  {
-    invoiceId: '000117',
-    billedTo: 'Toprecruters LTD',
-    invoiceDate: '12/02/2023',
-    status: 'Not paid',
-    vat: true
-  },
-  {
-    invoiceId: '000119',
-    billedTo: 'St. Sofia school LTD',
-    invoiceDate: '12/03/2023',
-    status: 'Paid',
-    vat: true
-  },
-  {
-    invoiceId: '000120',
-    billedTo: 'BGoil LTD',
-    invoiceDate: '12/04/2023',
-    status: 'Not paid',
-    vat: true
-  },
-  {
-    invoiceId: '000121',
-    billedTo: 'Company LTD',
-    invoiceDate: '12/04/2023',
-    status: 'Paid',
-    vat: true
-  },
-  {
-    invoiceId: '000122',
-    billedTo: 'ETLL LTD',
-    invoiceDate: '12/04/2023',
-    status: 'Drafts',
-    vat: true
-  },
-  {
-    invoiceId: '000315',
-    billedTo: 'Happy Pets LTD',
-    invoiceDate: '12/01/2023',
-    status: 'Drafts',
-    vat: true
-  },
-  {
-    invoiceId: '002119',
-    billedTo: 'St. Sofia school LTD',
-    invoiceDate: '12/03/2023',
-    status: 'Paid',
-    vat: true
-  },
-  {
-    invoiceId: '010120',
-    billedTo: 'BGoil LTD',
-    invoiceDate: '12/04/2023',
-    status: 'Not paid',
-    vat: true
-  },
-  {
-    invoiceId: '030121',
-    billedTo: 'Company LTD',
-    invoiceDate: '12/04/2023',
-    status: 'Paid',
-    vat: true
-  },
-  {
-    invoiceId: '100122',
-    billedTo: 'ETLL LTD',
-    invoiceDate: '12/04/2023',
-    status: 'Drafts',
-    vat: true
-  },
-  {
-    invoiceId: '090315',
-    billedTo: 'Happy Pets LTD',
-    invoiceDate: '12/01/2023',
-    status: 'Drafts',
-    vat: true
-  }
-];
-
 const Invoices = () => {
-  const [invoices, setInvoices] = useState(invoicesData);
+  const { invoices, updateInvoices } = useInvoices();
+  const [invoicesData, setInvoicesData] = useState<Invoice[]>(invoices);
   const [filter, setFilter] = useState<string>(INVOICES_FILLTER_STATUS.ALL);
   const [fromDate, setFromDate] = useState<Date>();
   const [toDate, setToDate] = useState<Date>();
@@ -153,11 +62,11 @@ const Invoices = () => {
     if (invoiceIDSort === INVOICES_SORT_STATUS.ASC) {
       setInvoiceIDSort(INVOICES_SORT_STATUS.DESC);
       invoices.sort((a, b) => (a.invoiceId < b.invoiceId ? 1 : -1));
-      setInvoices(invoices);
+      setInvoicesData(invoices);
     } else {
       setInvoiceIDSort(INVOICES_SORT_STATUS.ASC);
       invoices.sort((a, b) => (a.invoiceId > b.invoiceId ? 1 : -1));
-      setInvoices(invoices);
+      setInvoicesData(invoices);
     }
   };
 
@@ -165,11 +74,11 @@ const Invoices = () => {
     if (billedToSort === INVOICES_SORT_STATUS.ASC) {
       setBilledToSort(INVOICES_SORT_STATUS.DESC);
       invoices.sort((a, b) => (a.billedTo < b.billedTo ? 1 : -1));
-      setInvoices(invoices);
+      setInvoicesData(invoices);
     } else {
       setBilledToSort(INVOICES_SORT_STATUS.ASC);
       invoices.sort((a, b) => (a.billedTo > b.billedTo ? 1 : -1));
-      setInvoices(invoices);
+      setInvoicesData(invoices);
     }
   };
 
@@ -177,11 +86,11 @@ const Invoices = () => {
     if (invoiceDateSort === INVOICES_SORT_STATUS.ASC) {
       setInvoiceDateSort(INVOICES_SORT_STATUS.DESC);
       invoices.sort((a, b) => (a.invoiceDate < b.invoiceDate ? 1 : -1));
-      setInvoices(invoices);
+      setInvoicesData(invoices);
     } else {
       setInvoiceDateSort(INVOICES_SORT_STATUS.ASC);
       invoices.sort((a, b) => (a.invoiceDate > b.invoiceDate ? 1 : -1));
-      setInvoices(invoices);
+      setInvoicesData(invoices);
     }
   };
 
@@ -199,13 +108,13 @@ const Invoices = () => {
   }, [page, totalPages]);
 
   useEffect(() => {
-    setTotalPages(Math.ceil(invoicesData.length / itemsPerPage));
-    const _invoices = invoicesData.slice(
+    setTotalPages(Math.ceil(invoices.length / itemsPerPage));
+    const _invoices = invoices.slice(
       (currentPage - 1) * itemsPerPage,
       currentPage * itemsPerPage
     );
-    setInvoices(_invoices);
-  }, [currentPage, invoices, itemsPerPage]);
+    setInvoicesData(_invoices);
+  }, [currentPage, itemsPerPage]);
 
   return (
     <div className="container text-primary flex flex-col gap-3">
@@ -388,7 +297,7 @@ const Invoices = () => {
               </tr>
             </thead>
             <tbody className="hidden-scrollbar">
-              {invoices.map(data => {
+              {invoicesData.map((data: Invoice) => {
                 return (
                   <tr key={data.invoiceId}>
                     <td className="w-[50px]">

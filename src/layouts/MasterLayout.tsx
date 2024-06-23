@@ -3,6 +3,8 @@ import { Outlet } from 'react-router-dom';
 import HeaderNav from './HeaderNav';
 import Footer from './Footer';
 import SideBar from './SideBar';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MasterLayout = () => {
   return (
@@ -21,6 +23,7 @@ const MasterLayout = () => {
           <Footer />
         </footer>
       </div>
+      <ToastContainer hideProgressBar={true} />
     </div>
   );
 };

@@ -14,6 +14,8 @@ module.exports = {
         'aero_blue': '#DAFBE4',
         'lavender_blush': '#FFF0F1',
         'glaucous': '#6A73B6',
+        'gray': '#7F7E79',
+        'red-error': '#E4033B'
       }
     },
   },

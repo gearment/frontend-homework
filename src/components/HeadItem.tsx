@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 type HeadItemProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   number_notif?: number;
 };
 

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { IoIosArrowUp } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 
 type SlideBarItemProps = {
-  icon: React.ReactNode;
+  icon: ReactNode;
   title: string;
   url?: string;
   isActive?: boolean;
