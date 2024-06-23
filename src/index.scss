@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  box-sizing: border-box;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.container {
+  height: auto;
+  background-color: #f2f3fb;
+  border-radius: 12px;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.modal {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.background-blue-gradient {
+  background: linear-gradient(
+    90deg,
+    rgba(44, 79, 209, 1) 0%,
+    rgba(0, 18, 127, 1) 100%
+  );
+}
+
+.primary-button {
+  display: flex;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 8px;
+  align-items: center;
+  color: #fff;
+  background: linear-gradient(
+    90deg,
+    rgba(44, 79, 209, 1) 0%,
+    rgba(0, 18, 127, 1) 100%
+  );
+  font-size: 14px;
+  outline: none;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s ease-in-out all;
+}
+
+.primary-button:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 18, 127, 1) 0%,
+    rgba(44, 79, 209, 1) 100%
+  );
+}
+
+.secondary-button {
+  display: flex;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 8px;
+  align-items: center;
+  color: #00127f;
+  background-color: #ffffff;
+  font-size: 14px;
+  outline: none;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #00127f;
+  font-weight: 600;
+}
+
+.secondary-button:hover {
+  background-color: #f2f3fb;
+}
+
+.select-style .css-b62m3t-container {
+  font-size: 14px;
+}
+
+.select-style .css-13cymwt-control {
+  background-color: #f2f3fb;
+  border-radius: 6px;
+  border: none;
+}
+
+.select-item-per-page .css-13cymwt-control {
+  background-color: #fff;
+  border: 2px solid #00127f;
+}
+
+.select-item-per-page .css-1xc3v61-indicatorContainer {
+  padding-left: 0;
+}
+
+.select-style .css-tj5bde-Svg {
+  color: #00127f;
+}
+
+.select-style .css-1u9des2-indicatorSeparator {
+  display: none;
+}
+
+.select-style .css-t3ipsp-control {
+  border: none;
+  box-shadow: none;
+  background-color: #f2f3fb;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.invoice-table thead tr {
+  border-bottom: 1px solid #00127f;
+}
+
+.invoice-table thead th {
+  text-align: start;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.invoice-add-table th {
+  font-weight: 800 !important;
+}
+
+.invoice-table tbody td {
+  font-size: 14px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #dfdfdf;
+  padding-right: 20px;
+  font-weight: 500;
+}
+
+.invoice-add-table td {
+  font-weight: 400 !important;
+  opacity: 0.8;
+}
+
+.invoiceCheckbox {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #00127f;
+  border-radius: 7px;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.invoiceCheckbox:checked {
+  background-color: #2c4fd1;
+}
+
+.invoiceCheckbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 7px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.hidden-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.invoice-table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.invoice-table thead {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.invoice-table tbody {
+  display: block;
+  max-height: 25vw;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.invoice-table tbody tr {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.invoice-input {
+  background-color: #f2f3fb;
+  outline: none;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+.invoice-input::placeholder {
+  color: #474646;
+  opacity: 0.8;
+}
+
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

@@ -1,0 +1,20 @@
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+}
+
+.required {
+  &::after {
+    content: '*';
+    color: #ff7337;
+  }
+}
