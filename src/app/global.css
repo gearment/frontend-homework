@@ -1,0 +1,57 @@
+.colorWeak {
+    filter: invert(80%);
+}
+
+.ant-layout {
+    min-height: 100vh;
+}
+.ant-pro-sider.ant-layout-sider.ant-pro-sider-fixed {
+    left: unset;
+}
+
+canvas {
+    display: block;
+}
+
+body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+@media (max-width: 768px) {
+    .ant-table {
+        width: 100%;
+        overflow-x: auto;
+        &-thead > tr,
+        &-tbody > tr {
+            > th,
+            > td {
+                white-space: pre;
+                > span {
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+.ant-pro-footer-bar {
+    z-index: 100 !important;
+}
+
+.ant-pro-footer-bar-left {
+    display: none;
+}
+
+.ant-pro-footer-bar-right {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
